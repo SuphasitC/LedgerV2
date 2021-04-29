@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ledger_v2/pocket.dart';
+import 'package:ledger_v2/presentation/add_pocket_page.dart';
+import 'package:ledger_v2/presentation/pocket_list_tile.dart';
 import 'presentation/app_drawer_listtile.dart';
+import 'config/routes.dart';
 
 void main() {
   runApp(LedgerApp());
@@ -12,6 +16,7 @@ class LedgerApp extends StatelessWidget {
       title: 'LedgerApp',
       theme: ThemeData(primarySwatch: Colors.orange, fontFamily: 'FCMinimal'),
       debugShowCheckedModeBanner: false,
+      onGenerateRoute: route,
       home: HomePage(title: 'LedgerAPP'),
     );
   }
@@ -27,8 +32,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  void addPocket() {}
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,17 +60,59 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'Pocket',
-            ),
+            pockets.isNotEmpty
+                ? Expanded(
+                    child: ListView.builder(
+                      itemCount: pockets.length,
+                      itemBuilder: (context, index) => PocketListTile(
+                        index: index,
+                      ),
+                    ),
+                  )
+                : Padding(
+                    padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+                    child: Container(
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.red[500],
+                          width: 3,
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                      ),
+                      width: 400,
+                      height: 120,
+                      child: Text(
+                        "Add some pocket.",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: addPocket,
+        onPressed: () => {
+          Navigator.of(context).pushNamed(AppRoutes.addPocket),
+        },
         tooltip: 'Add Pocket',
         child: Icon(Icons.add),
       ),
     );
   }
+}
+
+Route route(RouteSettings settings) {
+  Pocket pocket = settings.arguments;
+  // if (settings.name == AppRoutes.myPocket) {
+  //   return MaterialPageRoute(builder: (context) {
+  //     return MyPocket();
+  //   });
+  // }
+  if (settings.name == AppRoutes.addPocket) {
+    return MaterialPageRoute(builder: (context) {
+      return AddPocketPage();
+    });
+  }
+  return null;
 }

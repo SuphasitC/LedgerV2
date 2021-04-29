@@ -6,4 +6,6 @@ class Pocket {
   String pocketName;
   double currentBalance;
   Color pocketColor;
+
+  Pocket(this.pocketName, this.currentBalance, this.pocketColor);
 }
