@@ -17,7 +17,7 @@ class LedgerApp extends StatelessWidget {
       theme: ThemeData(primarySwatch: Colors.orange, fontFamily: 'FCMinimal'),
       debugShowCheckedModeBanner: false,
       onGenerateRoute: route,
-      home: HomePage(title: 'LedgerAPP'),
+      home: HomePage(title: 'MyPocket'),
     );
   }
 }
