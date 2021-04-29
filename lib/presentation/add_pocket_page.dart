@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:flutter/services.dart';
 import 'package:ledger_v2/config/routes.dart';
 import '../pocket.dart';
 
@@ -10,18 +12,21 @@ class AddPocketPage extends StatefulWidget {
 }
 
 class _AddPocketPageState extends State<AddPocketPage> {
-  final pocketNameController = TextEditingController();
-  final initialBalanceController = TextEditingController();
+  final pocketNameController = TextEditingController(text: 'My Pocket');
+  final initialBalanceController = TextEditingController(text: '0');
 
   bool validatePocketName = false;
   bool validateInitialBalance = false;
+
+  Color pocketColor = Colors.black;
 
   void createPocket() {
     checkTextFieldValidationState();
     if (!validatePocketName && !validateInitialBalance) {
       String pocketName = pocketNameController.text;
       double initialBalance = double.parse(initialBalanceController.text);
-      pockets.add(Pocket(pocketName, initialBalance, Colors.blue));
+      String pocketID = generatePocketID();
+      pockets.add(Pocket(pocketName, initialBalance, pocketColor, pocketID));
       Navigator.of(context).pushNamed(AppRoutes.myPocket);
     }
   }
@@ -45,6 +50,17 @@ class _AddPocketPageState extends State<AddPocketPage> {
     });
   }
 
+  void changeColor(Color color) {
+    this.setState(() {
+      pocketColor = color;
+    });
+  }
+
+  String generatePocketID() {
+    String generatedID = UniqueKey().toString();
+    return generatedID;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,12 +72,19 @@ class _AddPocketPageState extends State<AddPocketPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              'Pocket Name',
-              style: TextStyle(fontSize: 40),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.credit_card_rounded),
+                Text(
+                  ' Pocket Name',
+                  style: TextStyle(fontSize: 40),
+                ),
+              ],
             ),
             Padding(
-              padding: EdgeInsets.only(left: 40, right: 40),
+              padding:
+                  EdgeInsets.only(left: 40, right: 40, top: 20, bottom: 20),
               child: TextFormField(
                 style: TextStyle(fontSize: 20.0),
                 controller: pocketNameController,
@@ -85,12 +108,19 @@ class _AddPocketPageState extends State<AddPocketPage> {
                 ),
               ),
             ),
-            Text(
-              'Initial Balance',
-              style: TextStyle(fontSize: 40),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.attach_money),
+                Text(
+                  ' Initial Balance',
+                  style: TextStyle(fontSize: 40),
+                ),
+              ],
             ),
             Padding(
-              padding: EdgeInsets.only(left: 40, right: 40),
+              padding:
+                  EdgeInsets.only(left: 40, right: 40, top: 20, bottom: 20),
               child: TextFormField(
                 keyboardType: TextInputType.number,
                 style: TextStyle(fontSize: 20.0),
@@ -113,6 +143,62 @@ class _AddPocketPageState extends State<AddPocketPage> {
                       ? 'กรูณาใส่เงินในกระเป๋าตังค์เป็นตัวเลข และไม่เว้นว่าง'
                       : null,
                   errorStyle: TextStyle(fontSize: 18),
+                ),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.color_lens),
+                Text(
+                  ' Pocket Color',
+                  style: TextStyle(fontSize: 40),
+                ),
+              ],
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 20, bottom: 20),
+              child: Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.black,
+                    width: 2,
+                  ),
+                  color: Colors.black,
+                ),
+                // ignore: deprecated_member_use
+                child: RaisedButton(
+                  color: pocketColor,
+                  elevation: 3.0,
+                  onPressed: () => {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text('Pick a color!'),
+                            content: SingleChildScrollView(
+                              child: BlockPicker(
+                                pickerColor: pocketColor,
+                                onColorChanged: changeColor,
+                              ),
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                child: Text(
+                                  'Select',
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                                onPressed: () {
+                                  setState(() => {});
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        })
+                  },
                 ),
               ),
             ),

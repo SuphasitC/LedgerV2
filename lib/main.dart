@@ -32,6 +32,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  void refresh() {
+    this.setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +69,8 @@ class _HomePageState extends State<HomePage> {
                     child: ListView.builder(
                       itemCount: pockets.length,
                       itemBuilder: (context, index) => PocketListTile(
-                        index: index,
+                        pocket: pockets[index],
+                        refreshCallback: refresh,
                       ),
                     ),
                   )
@@ -93,7 +98,9 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => {
-          Navigator.of(context).pushNamed(AppRoutes.addPocket),
+          Navigator.of(context)
+              .pushNamed(AppRoutes.addPocket)
+              .then((value) => this.setState(() {})),
         },
         tooltip: 'Add Pocket',
         child: Icon(Icons.add),
