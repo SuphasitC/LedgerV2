@@ -26,6 +26,7 @@ class _AddPocketPageState extends State<AddPocketPage> {
       String pocketName = pocketNameController.text;
       double initialBalance = double.parse(initialBalanceController.text);
       String pocketID = generatePocketID();
+      print('pocketID = ' + pocketID);
       pockets.add(Pocket(pocketName, initialBalance, pocketColor, pocketID));
       Navigator.of(context).pushNamed(AppRoutes.myPocket);
     }
@@ -68,6 +69,7 @@ class _AddPocketPageState extends State<AddPocketPage> {
       appBar: AppBar(
         title: Text('Create Pocket'),
       ),
+      backgroundColor: Colors.grey[300],
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -75,10 +77,16 @@ class _AddPocketPageState extends State<AddPocketPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.credit_card_rounded),
+                Icon(
+                  Icons.credit_card_rounded,
+                  color: Colors.black,
+                ),
                 Text(
                   ' Pocket Name',
-                  style: TextStyle(fontSize: 40),
+                  style: TextStyle(
+                    fontSize: 40,
+                    color: Colors.black,
+                  ),
                 ),
               ],
             ),
@@ -86,7 +94,10 @@ class _AddPocketPageState extends State<AddPocketPage> {
               padding:
                   EdgeInsets.only(left: 40, right: 40, top: 20, bottom: 20),
               child: TextFormField(
-                style: TextStyle(fontSize: 20.0),
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: Colors.black,
+                ),
                 controller: pocketNameController,
                 onChanged: (text) => {
                   this.setState(() {
@@ -94,9 +105,9 @@ class _AddPocketPageState extends State<AddPocketPage> {
                   }),
                 },
                 decoration: InputDecoration(
-                  // enabledBorder: OutlineInputBorder(
-                  //   borderSide: BorderSide(color: Colors.white),
-                  // ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
+                  ),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.teal),
                   ),
@@ -111,10 +122,16 @@ class _AddPocketPageState extends State<AddPocketPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.attach_money),
+                Icon(
+                  Icons.attach_money,
+                  color: Colors.black,
+                ),
                 Text(
                   ' Initial Balance',
-                  style: TextStyle(fontSize: 40),
+                  style: TextStyle(
+                    fontSize: 40,
+                    color: Colors.black,
+                  ),
                 ),
               ],
             ),
@@ -123,7 +140,10 @@ class _AddPocketPageState extends State<AddPocketPage> {
                   EdgeInsets.only(left: 40, right: 40, top: 20, bottom: 20),
               child: TextFormField(
                 keyboardType: TextInputType.number,
-                style: TextStyle(fontSize: 20.0),
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: Colors.black,
+                ),
                 controller: initialBalanceController,
                 onChanged: (text) => {
                   this.setState(() {
@@ -131,9 +151,9 @@ class _AddPocketPageState extends State<AddPocketPage> {
                   }),
                 },
                 decoration: InputDecoration(
-                  // enabledBorder: OutlineInputBorder(
-                  //   borderSide: BorderSide(color: Colors.white),
-                  // ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
+                  ),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.teal),
                   ),
@@ -149,10 +169,16 @@ class _AddPocketPageState extends State<AddPocketPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.color_lens),
+                Icon(
+                  Icons.color_lens,
+                  color: Colors.black,
+                ),
                 Text(
                   ' Pocket Color',
-                  style: TextStyle(fontSize: 40),
+                  style: TextStyle(
+                    fontSize: 40,
+                    color: Colors.black,
+                  ),
                 ),
               ],
             ),
@@ -164,11 +190,10 @@ class _AddPocketPageState extends State<AddPocketPage> {
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: Colors.black,
-                    width: 2,
+                    width: 3,
                   ),
                   color: Colors.black,
                 ),
-                // ignore: deprecated_member_use
                 child: RaisedButton(
                   color: pocketColor,
                   elevation: 3.0,

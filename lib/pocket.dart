@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 List<Pocket> pockets = [];
 
 class Pocket {
-  String pocketName;
+  String name;
   double currentBalance;
-  Color pocketColor;
-  String pocketID;
+  Color color;
+  String id;
 
-  Pocket(this.pocketName, this.currentBalance, this.pocketColor, this.pocketID);
+  Pocket(this.name, this.currentBalance, this.color, this.id);
 }

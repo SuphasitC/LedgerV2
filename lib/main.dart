@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ledger_v2/pocket.dart';
 import 'package:ledger_v2/presentation/add_pocket_page.dart';
 import 'package:ledger_v2/presentation/pocket_list_tile.dart';
-import 'presentation/app_drawer_listtile.dart';
+import 'package:ledger_v2/presentation/pocket_page.dart';
+import 'presentation/app_drawer_list_tile.dart';
 import 'config/routes.dart';
 
 void main() {
@@ -39,24 +40,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-              child: Text(
-                'MyLedgerApp',
-                style: TextStyle(fontSize: 30),
-              ),
-              decoration: BoxDecoration(
-                color: Colors.orange,
-              ),
-            ),
-            for (int idx = 0; idx < drawerList.length; idx++)
-              DrawerListTile(idx),
-          ],
-        ),
-      ),
+      drawer: LedgerDrawer(),
+      backgroundColor: Colors.grey[300],
       appBar: AppBar(
         title: Text(widget.title),
       ),
@@ -64,6 +49,13 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            // Padding(
+            //   padding: EdgeInsets.all(20),
+            //   child: Text(
+            //     'My Pocket',
+            //     style: TextStyle(fontSize: 50, color: Colors.white),
+            //   ),
+            // ),
             pockets.isNotEmpty
                 ? Expanded(
                     child: ListView.builder(
@@ -89,7 +81,7 @@ class _HomePageState extends State<HomePage> {
                       height: 120,
                       child: Text(
                         "Add some pocket.",
-                        style: TextStyle(fontSize: 20),
+                        style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                     ),
                   ),
@@ -119,6 +111,11 @@ Route route(RouteSettings settings) {
   if (settings.name == AppRoutes.addPocket) {
     return MaterialPageRoute(builder: (context) {
       return AddPocketPage();
+    });
+  }
+  if (settings.name == AppRoutes.pocketPage) {
+    return MaterialPageRoute(builder: (context) {
+      return PocketPage(pocket: pocket);
     });
   }
   return null;
