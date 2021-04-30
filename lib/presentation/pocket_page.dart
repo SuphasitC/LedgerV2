@@ -3,6 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ledger_v2/config/routes.dart';
 import 'package:ledger_v2/pocket.dart';
 import 'package:ledger_v2/presentation/gauge_chart.dart';
+import 'package:ledger_v2/presentation/transaction_list_tile.dart';
+import 'package:ledger_v2/transaction.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 class PocketPage extends StatefulWidget {
@@ -87,13 +89,13 @@ class _PocketPageState extends State<PocketPage> {
           Expanded(
             flex: 3,
             child: Container(
-              color: Colors.grey,
+              color: Colors.grey[300],
               child: Expanded(
                 child: ListView.builder(
-                  itemCount: pockets.length,
-                  itemBuilder: (context, index) => ListTile(
-                    title: Text('Hello'),
-                    trailing: Text('from world'),
+                  itemCount: transaction.length,
+                  itemBuilder: (context, index) => TransactionListTile(
+                    transaction: transaction[index],
+                    // refreshCallback: refreshCallback,
                   ),
                 ),
               ),

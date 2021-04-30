@@ -23,6 +23,31 @@ List<Category> categories = [
   Category('สนอง Need', true),
 ];
 
+var transaction = [
+  [
+    Transaction(categories[3], 30000, '', DateTime.now()),
+    Transaction(categories[2], 450, '', DateTime.now()),
+    Transaction(categories[1], 700, '', DateTime.now()),
+    Transaction(categories[6], 5800, '', DateTime.now()),
+    Transaction(categories[10], 630, '', DateTime.now()),
+    Transaction(categories[5], 500, '', DateTime.now()),
+  ],
+  [
+    Transaction(categories[1], 300, '', DateTime.now()),
+    Transaction(categories[2], 4500, '', DateTime.now()),
+    Transaction(categories[3], 70, '', DateTime.now()),
+    Transaction(categories[4], 400, '', DateTime.now()),
+  ],
+  [
+    Transaction(categories[10], 30000, '', DateTime.now()),
+    Transaction(categories[7], 450, '', DateTime.now()),
+    Transaction(categories[2], 70, '', DateTime.now()),
+    Transaction(categories[1], 60, '', DateTime.now()),
+    Transaction(categories[9], 6300, '', DateTime.now()),
+    Transaction(categories[5], 5000, '', DateTime.now()),
+  ],
+];
+
 class Category {
   String label;
   bool isExpense;
