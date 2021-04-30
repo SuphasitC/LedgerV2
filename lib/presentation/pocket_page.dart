@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ledger_v2/pocket.dart';
+import 'package:ledger_v2/presentation/gauge_chart.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 
 class PocketPage extends StatefulWidget {
   final Pocket pocket;
@@ -27,11 +29,32 @@ class _PocketPageState extends State<PocketPage> {
         title: Text('Pocket: ' + pocket.name),
       ),
       backgroundColor: Colors.grey[300],
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [],
-        ),
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Expanded(
+            flex: 1,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                GaugeChart(),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Expense',
+                      style: TextStyle(fontSize: 30),
+                    ),
+                    Text(
+                      'Ratio',
+                      style: TextStyle(fontSize: 30),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
