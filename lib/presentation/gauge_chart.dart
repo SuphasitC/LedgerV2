@@ -6,24 +6,37 @@ import 'package:flutter/material.dart';
 const pi = 3.14159265359;
 
 List<GaugeSegment> chartData = [
-  GaugeSegment('Food', 75, Color(0xff3366cc)),
-  GaugeSegment('Electronics', 100, Color(0xff990099)),
-  GaugeSegment('HabitatRenting', 5, Color(0xff109618)),
-  GaugeSegment('Investment', 10, Color(0xfffdbe19)),
-  GaugeSegment('etc', 50, Color(0xffff9900)),
+  GaugeSegment('Habitat Renting', 20, Color(0xffdc3912)),
+  GaugeSegment('Food', 55, Color(0xffff9900)),
+  GaugeSegment('Electronics', 10, Color(0xff3366cc)),
+  GaugeSegment('Investment', 5, Color(0xff109618)),
+  GaugeSegment('etc', 10, Color(0xff990099)),
 ];
 
 class GaugeChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all(15),
       height: MediaQuery.of(context).size.height * 0.4,
       child: charts.PieChart(
         fetchChartData(),
         animate: true,
+        // behaviors: [
+        //   charts.DatumLegend(
+        //     position: charts.BehaviorPosition.bottom,
+        //     outsideJustification: charts.OutsideJustification.end,
+        //     horizontalFirst: false,
+        //     desiredMaxRows: 2,
+        //     cellPadding: EdgeInsets.only(right: 4.0, bottom: 4.0),
+        //     entryTextStyle: charts.TextStyleSpec(
+        //       // color: charts.MaterialPalette.purple.shadeDefault,
+        //       fontSize: 15,
+        //     ),
+        //   )
+        // ],
         defaultRenderer: charts.ArcRendererConfig(
-          arcWidth: 40,
+          arcWidth: 30,
           startAngle: 4 / 5 * pi,
           arcLength: 7 / 5 * pi,
           arcRendererDecorators: [
@@ -46,12 +59,11 @@ class GaugeChart extends StatelessWidget {
         domainFn: (GaugeSegment segment, _) =>
             segment.segment, //each data of chart
         measureFn: (GaugeSegment segment, _) =>
-            segment.size, //size of chart segment
+            segment.value, //value of chart segment
         colorFn: (GaugeSegment segment, _) =>
-            // charts.ColorUtil.fromDartColor(segment.color),
-            charts.ColorUtil.fromDartColor(Colors.orange),
+            charts.ColorUtil.fromDartColor(segment.color),
         data: chartData,
-        labelAccessorFn: (GaugeSegment segment, _) => '${segment.size}',
+        labelAccessorFn: (GaugeSegment segment, _) => '${segment.value}',
       )
     ];
   }
@@ -59,8 +71,8 @@ class GaugeChart extends StatelessWidget {
 
 class GaugeSegment {
   final String segment;
-  final int size;
+  final int value;
   final Color color;
 
-  GaugeSegment(this.segment, this.size, this.color);
+  GaugeSegment(this.segment, this.value, this.color);
 }

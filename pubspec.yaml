@@ -30,6 +30,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_colorpicker: ^0.4.0
   charts_flutter: ^0.10.0
+  toggle_switch: ^0.1.9
+  font_awesome_flutter: ^9.0.0
 
 dev_dependencies:
   flutter_test:
