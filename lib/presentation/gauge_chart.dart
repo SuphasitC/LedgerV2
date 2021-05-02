@@ -1,24 +1,22 @@
-/// Gauge chart example, where the data does not cover a full revolution in the
-/// chart.
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
 const pi = 3.14159265359;
 
 List<GaugeSegment> chartData = [
-  GaugeSegment('Habitat Renting', 20, Color(0xffdc3912)),
-  GaugeSegment('Food', 55, Color(0xffff9900)),
-  GaugeSegment('Electronics', 10, Color(0xff3366cc)),
-  GaugeSegment('Investment', 5, Color(0xff109618)),
-  GaugeSegment('etc', 10, Color(0xff990099)),
+  GaugeSegment('Habitat Renting', 45, Color(0xffdc3912)),
+  GaugeSegment('Food', 55, Color(0xff58cb4e)),
+  // GaugeSegment('Electronics', 10, Color(0xff3366cc)),
+  // GaugeSegment('Investment', 5, Color(0xff109618)),
+  // GaugeSegment('etc', 10, Color(0xff990099)),
 ];
 
 class GaugeChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(15),
-      height: MediaQuery.of(context).size.height * 0.4,
+      // padding: EdgeInsets.all(15),
+      height: MediaQuery.of(context).size.height * 0.3,
       child: charts.PieChart(
         fetchChartData(),
         animate: true,
@@ -36,9 +34,10 @@ class GaugeChart extends StatelessWidget {
         //   )
         // ],
         defaultRenderer: charts.ArcRendererConfig(
-          arcWidth: 30,
-          startAngle: 4 / 5 * pi,
-          arcLength: 7 / 5 * pi,
+          arcWidth: 40,
+          startAngle: 2.5 / 5 * pi,
+          // arcLength: 7 / 5 * pi,
+          arcLength: 10 / 5 * pi,
           arcRendererDecorators: [
             charts.ArcLabelDecorator(
               labelPosition: charts.ArcLabelPosition.outside,

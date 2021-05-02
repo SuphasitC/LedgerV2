@@ -34,51 +34,146 @@ class _PocketPageState extends State<PocketPage> {
       ),
       backgroundColor: Colors.grey[300],
       body: Column(
-        mainAxisSize: MainAxisSize.min,
         children: [
           Expanded(
             flex: 2,
-            child: Row(
+            child: Column(
               children: [
                 Expanded(
-                  flex: 1,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      GaugeChart(),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                  flex: 10,
+                  child: Padding(
+                    padding: EdgeInsets.all(15),
+                    child: Card(
+                      elevation: 7,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      // color: Colors.blue[500],
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text(
-                            'Expense',
-                            style: TextStyle(fontSize: 30),
+                          Expanded(
+                            flex: 7,
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(top: 10, left: 10),
+                                  child: Text(
+                                    'Income/Expense Pie Chart',
+                                    style: TextStyle(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: GaugeChart(),
+                                ),
+                              ],
+                            ),
                           ),
-                          Text(
-                            'Ratio',
-                            style: TextStyle(fontSize: 30),
+                          Expanded(
+                            flex: 3,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.only(top: 10, right: 10),
+                                  child: ToggleSwitch(
+                                    minWidth: 40.0,
+                                    initialLabelIndex: 0,
+                                    cornerRadius: 10.0,
+                                    activeFgColor: Colors.white,
+                                    inactiveBgColor: Colors.grey,
+                                    inactiveFgColor: Colors.white,
+                                    labels: ['', ''],
+                                    icons: [
+                                      FontAwesomeIcons.chartPie,
+                                      FontAwesomeIcons.chartBar
+                                    ],
+                                    activeBgColors: [
+                                      Colors.blue[700],
+                                      Colors.blue[700],
+                                    ],
+                                    onToggle: (index) {
+                                      if (index == 0) {
+                                        print('Switched to pie chart');
+                                      } else {
+                                        print('Switched to bar chart');
+                                      }
+                                    },
+                                  ),
+                                ),
+                                Container(
+                                  padding: EdgeInsets.only(top: 10, right: 10),
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        alignment: Alignment.center,
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        color: Colors.green[100],
+                                        child: Text(
+                                          'รายรับ : 55 %',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.green,
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        alignment: Alignment.center,
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        color: Colors.red[100],
+                                        child: Text(
+                                          'รายจ่าย : 45 %',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        padding: EdgeInsets.only(
+                                            top: 10, bottom: 10),
+                                        alignment: Alignment.center,
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        child: Text(
+                                          'ประหยัดอยู่นะ',
+                                          style: TextStyle(
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.bold,
+                                            // color: Colors.green,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
-                      Positioned(
-                        top: 20,
-                        right: 15,
-                        child: ToggleSwitch(
-                          minWidth: 40.0,
-                          initialLabelIndex: 0,
-                          cornerRadius: 10.0,
-                          activeFgColor: Colors.white,
-                          inactiveBgColor: Colors.grey,
-                          inactiveFgColor: Colors.white,
-                          labels: ['', ''],
-                          icons: [
-                            FontAwesomeIcons.chartPie,
-                            FontAwesomeIcons.chartBar
-                          ],
-                          activeBgColors: [Colors.blue, Colors.blue],
-                          onToggle: (index) {
-                            print('switched to: $index');
-                          },
-                        ),
+                    ),
+                  ),
+                ),
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.05,
+                  width: MediaQuery.of(context).size.width - 10,
+                  padding: EdgeInsets.only(left: 15, right: 15),
+                  color: Colors.orange,
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.view_day,
+                      ),
+                      Icon(
+                        Icons.calendar_today,
                       ),
                     ],
                   ),
@@ -90,13 +185,11 @@ class _PocketPageState extends State<PocketPage> {
             flex: 3,
             child: Container(
               color: Colors.grey[300],
-              child: Expanded(
-                child: ListView.builder(
-                  itemCount: transaction.length,
-                  itemBuilder: (context, index) => TransactionListTile(
-                    transaction: transaction[index],
-                    // refreshCallback: refreshCallback,
-                  ),
+              child: ListView.builder(
+                itemCount: transaction.length,
+                itemBuilder: (context, index) => TransactionListTile(
+                  transaction: transaction[index],
+                  // refreshCallback: refreshCallback,
                 ),
               ),
             ),
